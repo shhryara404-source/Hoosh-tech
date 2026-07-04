@@ -6,44 +6,26 @@ from huggingface_hub import InferenceClient
 HF_TOKEN = os.environ["HF_TOKEN"]
 client = InferenceClient(token=HF_TOKEN)
 
-topic = "پیشرفت‌های جدید در هوش مصنوعی و فناوری"
+topic = "Latest breakthroughs in artificial intelligence and technology"
 
 def generate_english(prompt):
     try:
         response = client.text_generation(
-            model="gpt2",          # بسیار پایدار، انگلیسی
+            model="gpt2",
             prompt=prompt,
             max_new_tokens=600,
             temperature=0.7,
-            stream=False
         )
         return response.strip()
     except Exception as e:
-        print(f"خطای انگلیسی: {e}")
+        print(f"English error: {type(e).__name__}: {e}")
         return "English content not available at this moment."
 
-def generate_persian(prompt):
-    try:
-        # مدل فارسی رایگان و پایدار
-        response = client.text_generation(
-            model="persiannlp/parsi-gpt2",
-            prompt=prompt,
-            max_new_tokens=600,
-            temperature=0.7,
-            stream=False
-        )
-        return response.strip()
-    except Exception as e:
-        print(f"خطای فارسی: {e}")
-        return "محتوای فارسی در این لحظه در دسترس نیست."
-
 prompt_en = f"Write a detailed article in English about: {topic}. Minimum 4 paragraphs."
-prompt_fa = f"یک مقاله جامع به زبان فارسی درباره این موضوع بنویس: {topic}. حداقل ۴ پاراگراف."
-
 article_en = generate_english(prompt_en)
-article_fa = generate_persian(prompt_fa)
+# فعلاً فارسی همان انگلیسی است (بعداً ترجمه می‌کنیم)
+article_fa = article_en
 
-# ذخیره در فایل
 with open("articles.json", "r", encoding="utf-8") as f:
     articles = json.load(f)
 
@@ -65,4 +47,4 @@ articles.append({
 with open("articles.json", "w", encoding="utf-8") as f:
     json.dump(articles, f, ensure_ascii=False, indent=2)
 
-print("✅ مقاله جدید ذخیره شد.")
+print("✅ New article saved.")
