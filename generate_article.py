@@ -6,20 +6,22 @@ from huggingface_hub import InferenceClient
 HF_TOKEN = os.environ["HF_TOKEN"]
 client = InferenceClient(token=HF_TOKEN)
 
-# موضوع پیش‌فرض
 topic = "پیشرفت‌های جدید در هوش مصنوعی و فناوری"
 
 def generate_article(prompt):
     try:
         response = client.text_generation(
-            model="bigscience/bloom-560m",
+            model="distilgpt2",
             prompt=prompt,
             max_new_tokens=800,
             temperature=0.7,
         )
         return response.strip()
     except Exception as e:
-        print(f"خطا در تولید متن: {e}")
+        print(f"خطا در تولید متن: {type(e).__name__}: {e}")
+        # اگر پاسخ خطا شامل جزئیات بیشتری است، آن را هم چاپ کن
+        if hasattr(e, 'response'):
+            print("Response text:", e.response.text)
         return "محتوای مقاله در این لحظه در دسترس نیست."
 
 prompt_fa = f"یک مقاله جامع به زبان فارسی درباره این موضوع بنویس: {topic}. حداقل ۴ پاراگراف."
@@ -28,7 +30,6 @@ prompt_en = f"Write a detailed article in English about: {topic}. Minimum 4 para
 article_fa = generate_article(prompt_fa)
 article_en = generate_article(prompt_en)
 
-# ذخیره در articles.json
 with open("articles.json", "r", encoding="utf-8") as f:
     articles = json.load(f)
 
