@@ -3,7 +3,7 @@ name: Generate Article Every 6 Hours
 on:
   schedule:
     - cron: '0 */6 * * *'   # هر ۶ ساعت یکبار اجرا می‌شود
-  workflow_dispatch:        # به شما اجازه می‌دهد دکمه اجرا داشته باشید
+  workflow_dispatch:        # امکان اجرای دستی
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install dependencies
-        run: pip install requests
+        run: pip install -r requirements.txt
       - name: Run article generator
         env:
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
