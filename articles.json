@@ -168,5 +168,22 @@
       "fa": "<p>English content not available at this moment.</p>",
       "en": "<p>English content not available at this moment.</p>"
     }
+  },
+  {
+    "id": 11,
+    "category": "Technology",
+    "date": "2026/07/06",
+    "title": {
+      "fa": "Latest breakthroughs in artificial intelligence and technology",
+      "en": "Latest breakthroughs in artificial intelligence and technology"
+    },
+    "excerpt": {
+      "fa": "English content not available at this moment....",
+      "en": "English content not available at this moment...."
+    },
+    "body": {
+      "fa": "<p>English content not available at this moment.</p>",
+      "en": "<p>English content not available at this moment.</p>"
+    }
   }
 ]
