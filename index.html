@@ -55,6 +55,8 @@
         }
         #particles-js { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
         .container { max-width:1300px; margin:0 auto; padding:0 2rem; }
+
+        /* هدر */
         header {
             background: var(--header-bg);
             backdrop-filter: blur(var(--blur-amount));
@@ -67,20 +69,15 @@
         .header-inner { display:flex; justify-content:space-between; align-items:center; }
         .logo { display:flex; align-items:center; text-decoration:none; gap:0.5rem; }
         .logo-icon {
-            width:50px; height:50px; border-radius:16px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display:flex; align-items:center; justify-content:center;
-            font-family: var(--font-main); font-size:2rem; font-weight:900; color:white;
-            box-shadow: 0 8px 25px rgba(108,99,255,0.4);
-            position:relative; overflow:hidden; transform:rotate(-5deg);
-            transition: transform 0.3s;
+            width:50px; height:50px; position:relative; display:flex; align-items:center; justify-content:center;
         }
-        .logo-icon:hover { transform:rotate(0deg) scale(1.05); }
+        .logo-icon svg { width:50px; height:50px; }
         .logo-text {
             font-family: var(--font-main); font-size:2rem; font-weight:900;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip:text; -webkit-text-fill-color:transparent;
             letter-spacing: -0.5px;
+            text-shadow: 2px 2px 4px rgba(108,99,255,0.2);
         }
         .nav-links { display:flex; list-style:none; gap:2rem; }
         .nav-links a {
@@ -140,18 +137,22 @@
             padding-top:1.5rem; border-top:1px solid var(--glass-border);
         }
         .theme-icon {
-            font-size:1.8rem; cursor:pointer; padding:0.5rem;
+            font-size:1.8rem; cursor:pointer; padding:0.7rem;
             border-radius:50%; transition: var(--transition);
             background: var(--glass-bg); backdrop-filter:blur(10px);
             border:1px solid var(--glass-border);
+            display:flex; align-items:center; justify-content:center;
         }
-        .theme-icon:hover { transform:scale(1.2); }
-        .sun-icon { color:#FFC857; }
-        .moon-icon { color:#A0AEC0; }
-        .dark-mode .sun-icon { opacity:0.5; }
-        .dark-mode .moon-icon { color:#FFC857; opacity:1; }
-        .page { display:none; padding-top:90px; min-height:80vh; }
-        .page.active { display:block; }
+        .theme-icon:hover { transform: scale(1.2) rotate(30deg); }
+        .sun-icon { color: var(--primary-light); }
+        .moon-icon { color: var(--primary-light); }
+        .dark-mode .sun-icon { opacity: 0.6; }
+        .dark-mode .moon-icon { color: var(--secondary); opacity:1; }
+
+        /* صفحات */
+        .page { display:none; padding-top:90px; min-height:80vh; opacity:0; transition: opacity 0.4s ease; }
+        .page.active { display:block; opacity:1; }
+
         .btn {
             display:inline-block; padding:12px 28px; border-radius:50px;
             font-weight:700; text-decoration:none; transition:var(--transition);
@@ -174,6 +175,22 @@
             text-decoration:none; backdrop-filter:blur(10px);
         }
         .link-card:hover { background:rgba(108,99,255,0.2); transform:translateX(-5px); }
+
+        /* اسلایدر هیرو */
+        .hero-slider {
+            position:relative; overflow:hidden; border-radius:var(--radius);
+            height:420px; margin-bottom:3rem; display:flex; align-items:center;
+        }
+        .slide {
+            position:absolute; top:0; left:0; width:100%; height:100%;
+            opacity:0; transition:opacity 1s; display:flex; align-items:center;
+            background:linear-gradient(135deg, var(--primary-light), var(--secondary));
+            color:white; padding:3rem; box-sizing:border-box;
+        }
+        .slide.active { opacity:1; }
+        .slide-content { max-width:600px; }
+
+        /* کارت‌های مقاله */
         .articles-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:2rem; margin-top:2rem; }
         .article-card {
             background:var(--card-bg); backdrop-filter:blur(15px);
@@ -213,6 +230,8 @@
             position:fixed; top:0; left:0; height:3px; background:linear-gradient(135deg, var(--primary), var(--secondary));
             z-index:1001; transition:width 0.2s;
         }
+
+        /* مقایسه */
         .product-selector { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; }
         .selector-box { position:relative; flex:1; min-width:250px; }
         .selector-box input {
@@ -228,6 +247,8 @@
         .dropdown-options.show { display:block; }
         .dropdown-option { padding:0.8rem 1rem; cursor:pointer; transition:background 0.2s; }
         .dropdown-option:hover { background:rgba(108,99,255,0.1); }
+
+        /* دستیار هوش مصنوعی */
         .ai-bubble {
             position:fixed; bottom:30px; right:30px; width:60px; height:60px;
             border-radius:50%; background:linear-gradient(135deg, var(--primary), var(--secondary));
@@ -237,6 +258,7 @@
         }
         .ai-bubble.show { display:flex; }
         @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(108,99,255,0.5); } 70% { box-shadow:0 0 0 20px rgba(108,99,255,0); } 100% { box-shadow:0 0 0 0 rgba(108,99,255,0); } }
+
         .chat-overlay {
             position:fixed; top:0; left:0; width:100%; height:100%;
             background:rgba(0,0,0,0.6); backdrop-filter:blur(15px);
@@ -254,6 +276,8 @@
         .chat-msg.bot { align-self:flex-start; background:var(--card-bg); backdrop-filter:blur(10px); }
         .chat-input-area { display:flex; padding:0.8rem; gap:0.5rem; }
         .chat-input-area input { flex:1; padding:0.8rem; border-radius:50px; border:1px solid var(--glass-border); background:var(--bg); }
+
+        /* مودال */
         .modal {
             position:fixed; top:0; left:0; width:100%; height:100%;
             background:rgba(0,0,0,0.6); backdrop-filter:blur(10px);
@@ -268,11 +292,8 @@
         .tab-buttons { display:flex; margin-bottom:1.5rem; border-bottom:2px solid rgba(255,255,255,0.2); }
         .tab-btn { flex:1; padding:0.8rem; background:none; border:none; font-weight:600; cursor:pointer; color:var(--gray); transition:0.3s; }
         .tab-btn.active { color:var(--primary); border-bottom:2px solid var(--primary); }
-        .hero-slider { position:relative; overflow:hidden; border-radius:var(--radius); height:380px; margin-bottom:3rem; }
-        .slide { position:absolute; top:0; left:0; width:100%; height:100%; opacity:0; transition:opacity 1s; display:flex; align-items:center; background:linear-gradient(135deg, var(--primary-light), var(--secondary)); color:white; padding:2rem; }
-        .slide.active { opacity:1; }
 
-        /* Transition animation for theme change */
+        /* Theme transition */
         .theme-transition {
             animation: themeFade 0.4s ease;
         }
@@ -281,6 +302,7 @@
             100% { opacity:1; }
         }
 
+        /* Responsive */
         @media (min-width:1025px) {
             .nav-links { display:flex; }
             .hamburger { display:none; }
@@ -288,11 +310,15 @@
         @media (min-width:768px) and (max-width:1024px) {
             .nav-links { display:none; }
             .hamburger { display:block; }
+            .hero-slider { height:350px; }
+            .slide { padding:2rem; }
         }
         @media (max-width:767px) {
             .nav-links { display:none; }
             .hamburger { display:block; }
-            .hero-slider { height:250px; }
+            .hero-slider { height:300px; }
+            .slide { padding:1.5rem; text-align:center; }
+            .slide-content h1 { font-size:1.8rem; }
             .articles-grid { grid-template-columns:1fr; }
             .container { padding:0 1rem; }
         }
@@ -302,7 +328,7 @@
 <div id="particles-js"></div>
 <div class="reading-progress" id="readingProgress"></div>
 
-<!-- منوی موبایل (بدون ایموجی) -->
+<!-- منوی موبایل -->
 <div class="mobile-menu-overlay" id="mobileMenuOverlay">
     <div class="mobile-menu">
         <a href="#" onclick="navigate('home'); closeMobileMenu()">خانه</a>
@@ -319,7 +345,23 @@
 <header>
     <div class="container header-inner">
         <a href="#" class="logo" onclick="navigate('home')">
-            <div class="logo-icon">H+</div>
+            <div class="logo-icon">
+                <!-- لوگوی جدید: مدار الکترونیکی با H -->
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#6C63FF"/>
+                            <stop offset="100%" stop-color="#FF6584"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGrad)" stroke-width="5"/>
+                    <path d="M30 20 L30 80 M70 20 L70 80 M30 50 L70 50" stroke="url(#logoGrad)" stroke-width="6" stroke-linecap="round"/>
+                    <circle cx="30" cy="20" r="5" fill="#6C63FF"/>
+                    <circle cx="70" cy="80" r="5" fill="#FF6584"/>
+                    <circle cx="70" cy="20" r="4" fill="#6C63FF"/>
+                    <circle cx="30" cy="80" r="4" fill="#FF6584"/>
+                </svg>
+            </div>
             <span class="logo-text">هوش‌تک</span>
         </a>
         <nav>
@@ -343,10 +385,24 @@
 <div id="home" class="page active">
     <div class="container">
         <div class="hero-slider" id="heroSlider">
-            <div class="slide active"><div><h1 style="font-size:2.8rem; font-weight:900;">آینده را با هوش‌تک کاوش کنید</h1><p>رسانه فناوری خودکار، ساخته‌شده با هوش مصنوعی</p><a href="#" class="btn btn-primary" style="background:white; color:var(--primary);" onclick="navigate('articles')">مشاهده مقالات</a></div></div>
-            <div class="slide"><div><h1>تحلیل‌های عمیق و به‌روز</h1><p>جدیدترین اخبار فناوری، آموزش برنامه‌نویسی و بررسی تخصصی</p></div></div>
+            <div class="slide active">
+                <div class="slide-content">
+                    <h1 style="font-size:2.8rem; font-weight:900;">آینده را با هوش‌تک کاوش کنید</h1>
+                    <p style="font-size:1.2rem; margin:1rem 0;">رسانه فناوری خودکار، ساخته‌شده با هوش مصنوعی</p>
+                    <a href="#" class="btn btn-primary" style="background:white; color:var(--primary);" onclick="navigate('articles')">مشاهده مقالات</a>
+                </div>
+            </div>
+            <div class="slide">
+                <div class="slide-content">
+                    <h1 style="font-size:2.5rem;">تحلیل‌های عمیق و به‌روز</h1>
+                    <p style="font-size:1.2rem; margin:1rem 0;">جدیدترین اخبار فناوری، آموزش برنامه‌نویسی و بررسی تخصصی</p>
+                </div>
+            </div>
         </div>
-        <section><h2 style="text-align:center; font-size:2rem; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">جدیدترین مقالات</h2><div id="latestGrid" class="articles-grid"></div></section>
+        <section>
+            <h2 style="text-align:center; font-size:2rem; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">جدیدترین مقالات</h2>
+            <div id="latestGrid" class="articles-grid"></div>
+        </section>
     </div>
 </div>
 
@@ -358,16 +414,13 @@
             <select id="categoryFilter" onchange="filterArticles()" style="padding:14px; border-radius:50px; background:var(--card-bg); border:1px solid var(--glass-border);">
                 <option value="all">همه</option>
                 <option value="AI">هوش مصنوعی</option>
-                <option value="Quantum">فیزیک کوانتوم</option>
+                <option value="Programming">برنامه‌نویسی</option>
                 <option value="Phone">موبایل</option>
                 <option value="Laptop">لپ‌تاپ</option>
-                <option value="Programming">کدنویسی</option>
-                <option value="Gadgets">گجت‌ها</option>
-                <option value="Space">فضا</option>
-                <option value="Science">علوم</option>
+                <option value="BuyingGuide">راهنمای خرید</option>
             </select>
         </div>
-        <div id="articlesContainer" class="articles-grid"><p>هنوز مقاله‌ای منتشر نشده است.</p></div>
+        <div id="articlesContainer" class="articles-grid"><p>در حال بارگذاری مقالات...</p></div>
         <div id="pagination" class="pagination"></div>
     </div>
 </div>
@@ -388,16 +441,15 @@
     <div class="container" style="max-width:800px; margin:0 auto;">
         <h2 style="font-size:2.2rem; margin-bottom:2rem;">درباره سایت</h2>
         <div class="glass" style="padding:2rem; line-height:2; backdrop-filter:blur(25px);">
-            <p><strong>هوش‌تک (Hoosh Tech)</strong> یک رسانه فناوری پیشرو و کاملاً خودکار است که با تلفیق هنر طراحی و قدرت هوش مصنوعی، پنجره‌ای رو به آینده می‌گشاید. این سایت به‌طور کامل توسط <strong>شهریار وزیری نسب</strong> طراحی و ساخته شده است و هر خط کد آن با عشق به فناوری و دقت فراوان نوشته شده است.</p>
-            <p>در هوش‌تک، هدف ما ارائه جدیدترین اخبار، تحلیل‌های تخصصی، آموزش‌های برنامه‌نویسی و مقایسه محصولات دیجیتال به شکلی جذاب و بدون دخالت انسان است. هوش مصنوعی ما به‌طور مداوم منابع معتبر فناوری را رصد می‌کند و محتوایی منحصربه‌فرد به دو زبان فارسی و انگلیسی تولید می‌کند.</p>
+            <p><strong>هوش‌تک (Hoosh Tech)</strong> یک رسانه فناوری پیشرو و کاملاً خودکار است که با تلفیق هنر طراحی و قدرت هوش مصنوعی، پنجره‌ای رو به آینده می‌گشاید. این سایت به‌طور کامل توسط <strong>شهریار وزیری نسب</strong> طراحی و ساخته شده است.</p>
+            <p>در هوش‌تک، هدف ما ارائه جدیدترین اخبار، تحلیل‌های تخصصی، آموزش‌های برنامه‌نویسی و مقایسه محصولات دیجیتال به شکلی جذاب و بدون دخالت انسان است.</p>
             <p><strong>راهنمای بخش‌ها:</strong></p>
             <ul style="margin-right:2rem;">
                 <li><strong>خانه:</strong> اسلایدر اخبار و جدیدترین مقالات</li>
                 <li><strong>مقالات:</strong> آرشیو کامل مطالب با جستجو و دسته‌بندی</li>
-                <li><strong>مقایسه:</strong> مقایسه تخصصی مشخصات فنی محصولات دیجیتال (که توسط ایجنت هوشمند به‌روز می‌شود)</li>
+                <li><strong>مقایسه:</strong> مقایسه تخصصی مشخصات فنی محصولات دیجیتال</li>
                 <li><strong>دستیار هوش مصنوعی (دکمه شناور پایین صفحه):</strong> پاسخ به پرسش‌های فناوری شما</li>
             </ul>
-            <p>هوش‌تک نماد نسل جدید رسانه‌هاست – رسانه‌ای که هرگز نمی‌خوابد، همواره در حال یادگیری است و محتوایی اختصاصی و باکیفیت ارائه می‌دهد.</p>
             <p style="margin-top:2rem; font-style:italic;">«ساخته‌شده با افتخار توسط شهریار وزیری نسب»</p>
         </div>
     </div>
@@ -459,16 +511,22 @@
 
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-    // ======================== DATA ========================
+    // ======================== DATA LOADING ========================
     let allArticles = [];
     let productsList = [];
 
     async function loadData() {
         try {
             const res = await fetch('articles.json');
-            if (res.ok) allArticles = await res.json();
-            else allArticles = [];
-        } catch(e) { allArticles = []; }
+            if (!res.ok) throw new Error('Network response was not ok');
+            const text = await res.text();
+            console.log('Articles JSON length:', text.length);
+            allArticles = JSON.parse(text);
+            console.log('Loaded articles:', allArticles.length);
+        } catch(e) {
+            console.error('Error loading articles:', e);
+            allArticles = [];
+        }
         try {
             const res = await fetch('products.json');
             if (res.ok) productsList = await res.json();
@@ -476,7 +534,6 @@
         } catch(e) { productsList = []; }
         renderTrending();
     }
-    loadData();
 
     // ======================== THEME ========================
     function setDarkMode() {
@@ -496,9 +553,9 @@
     }
 
     // ======================== USER SYSTEM ========================
-    let currentUser = JSON.parse(localStorage.getItem('techPlusUser')) || null;
+    let currentUser = JSON.parse(localStorage.getItem('hooshTechUser')) || null;
     let pendingOTP = null;
-    function saveUser() { localStorage.setItem('techPlusUser', JSON.stringify(currentUser)); }
+    function saveUser() { localStorage.setItem('hooshTechUser', JSON.stringify(currentUser)); }
     function updateUserUI() {
         const area = document.getElementById('userArea');
         if (currentUser?.isLoggedIn) {
@@ -566,7 +623,10 @@
     function navigate(page) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         const target = document.getElementById(page);
-        if (target) target.classList.add('active');
+        if (target) {
+            target.classList.add('active');
+            setTimeout(() => { target.style.opacity = '1'; }, 10);
+        }
         currentPage = page;
         if (page === 'articles') initArticleList();
         else if (page === 'compare') buildCompareSelectors();
@@ -577,6 +637,10 @@
     }
 
     function renderTrending() {
+        if (allArticles.length === 0) {
+            document.getElementById('latestGrid').innerHTML = '<p>در حال بارگذاری مقالات...</p>';
+            return;
+        }
         const sorted = allArticles.slice(0, 6);
         let html = '';
         sorted.forEach(a => html += createArticleCard(a));
@@ -584,18 +648,16 @@
     }
 
     function createArticleCard(article) {
-        const title = article.title?.fa || '';
-        const excerpt = article.excerpt?.fa || '';
+        const title = article.title?.fa || article.title || '';
+        const excerpt = article.excerpt?.fa || article.excerpt || '';
         const date = article.date || '';
         const category = article.category || 'Technology';
-        const saved = currentUser?.savedArticles?.includes(article.id);
-        const iconMap = { AI:'robot', Quantum:'atom', Phone:'mobile-alt', Laptop:'laptop', Programming:'code', Gadgets:'clock', Space:'rocket', Science:'flask' };
+        const iconMap = { AI:'robot', Programming:'code', Phone:'mobile-alt', Laptop:'laptop', BuyingGuide:'shopping-cart' };
         const icon = iconMap[category] || 'laptop-code';
         return `<div class="article-card" onclick="navigate('articleDetail'); showArticleDetail(${article.id})">
             <div class="article-img"><div class="ai-art"></div><i class="fas fa-${icon}"></i></div>
             <div class="article-body">
                 <span class="article-tag">${category}</span>
-                <i class="save-btn fas fa-bookmark ${saved?'saved':''}" onclick="event.stopPropagation(); toggleSaveArticle(${article.id})"></i>
                 <h3>${title}</h3>
                 <p>${excerpt}</p>
                 <small>${date}</small>
@@ -609,9 +671,9 @@
         const search = document.getElementById('searchInput').value.trim().toLowerCase();
         const cat = document.getElementById('categoryFilter').value;
         filteredIds = allArticles.filter(a => {
-            const title = a.title?.fa || '';
-            const excerpt = a.excerpt?.fa || '';
-            const matchSearch = search === '' || title.toLowerCase().includes(search) || excerpt.toLowerCase().includes(search);
+            const title = (a.title?.fa || a.title || '').toLowerCase();
+            const excerpt = (a.excerpt?.fa || a.excerpt || '').toLowerCase();
+            const matchSearch = search === '' || title.includes(search) || excerpt.includes(search);
             const matchCat = cat === 'all' || a.category === cat;
             return matchSearch && matchCat;
         }).map(a => a.id);
@@ -619,14 +681,18 @@
         renderArticles();
     }
     function renderArticles() {
+        if (allArticles.length === 0) {
+            document.getElementById('articlesContainer').innerHTML = '<p>در حال بارگذاری مقالات... لطفاً مطمئن شوید فایل articles.json در مخزن وجود دارد.</p>';
+            return;
+        }
         const start = (currentArticlePage-1) * articlesPerPage;
         const pageIds = filteredIds.slice(start, start+articlesPerPage);
         let html = '';
         pageIds.forEach(id => {
             const a = allArticles.find(x => x.id === id);
-            html += createArticleCard(a);
+            if (a) html += createArticleCard(a);
         });
-        document.getElementById('articlesContainer').innerHTML = html || '<p>هنوز مقاله‌ای منتشر نشده است.</p>';
+        document.getElementById('articlesContainer').innerHTML = html || '<p>مقاله‌ای یافت نشد.</p>';
         renderPagination(Math.ceil(filteredIds.length / articlesPerPage));
     }
     function renderPagination(total) {
@@ -640,10 +706,9 @@
     function showArticleDetail(id) {
         currentArticleId = id;
         const a = allArticles.find(x => x.id === id);
-        if (!a) return;
-        if (currentUser) addToHistory(id);
-        const title = a.title?.fa || '';
-        const body = a.body?.fa || '';
+        if (!a) { alert('مقاله یافت نشد.'); return; }
+        const title = a.title?.fa || a.title || '';
+        const body = a.body?.fa || a.body || '';
         document.getElementById('articleDetailContent').innerHTML = `
             <h1>${title}</h1>
             <div style="color:var(--gray);">${a.date || ''} | ${a.category || ''}</div>
@@ -656,24 +721,6 @@
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         document.getElementById('readingProgress').style.width = (winScroll/height)*100 + '%';
-    }
-    function addToHistory(id) {
-        if (!currentUser) return;
-        if (!currentUser.readingHistory) currentUser.readingHistory = [];
-        if (!currentUser.readingHistory.includes(id)) {
-            currentUser.readingHistory.push(id);
-            if (currentUser.readingHistory.length > 30) currentUser.readingHistory.shift();
-            saveUser();
-        }
-    }
-    function toggleSaveArticle(id) {
-        if (!currentUser) { openLogin(); return; }
-        const idx = currentUser.savedArticles.indexOf(id);
-        if (idx > -1) currentUser.savedArticles.splice(idx, 1);
-        else currentUser.savedArticles.push(id);
-        saveUser();
-        if (currentPage === 'articles') filterArticles();
-        else if (currentPage === 'articleDetail') showArticleDetail(id);
     }
 
     // ======================== COMPARE ========================
@@ -716,8 +763,6 @@
                 <tr><td>پردازنده</td><td>${p1.cpu || '---'}</td><td>${p2.cpu || '---'}</td></tr>
                 <tr><td>رم</td><td>${p1.ram || '---'}</td><td>${p2.ram || '---'}</td></tr>
                 <tr><td>باتری</td><td>${p1.battery || '---'}</td><td>${p2.battery || '---'}</td></tr>
-                <tr><td>دوربین</td><td>${p1.camera || '---'}</td><td>${p2.camera || '---'}</td></tr>
-                <tr><td>وزن</td><td>${p1.weight || '---'}</td><td>${p2.weight || '---'}</td></tr>
             </table>
         `;
     }
@@ -730,10 +775,6 @@
             <div class="glass" style="padding:2rem;">
                 <p><strong>نام:</strong> ${currentUser.name}</p>
                 <p><strong>ایمیل/شماره:</strong> ${currentUser.email}</p>
-                <p><strong>تاریخچه مطالعه:</strong> ${(currentUser.readingHistory||[]).map(id => {
-                    const a = allArticles.find(x => x.id === id);
-                    return a ? `<a href="#" onclick="navigate('articleDetail'); showArticleDetail(${id})">${a.title?.fa}</a>` : '';
-                }).join('، ') || 'خالی'}</p>
             </div>
         `;
     }
@@ -754,18 +795,16 @@
                 const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: "تو یک دستیار خبره فناوری هستی. پاسخ کامل و مفید بده:\n" + text }] }]
-                    })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "تو یک دستیار خبره فناوری هستی. پاسخ کامل و مفید بده:\n" + text }] }] })
                 });
                 const data = await response.json();
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     msgDiv.innerHTML += `<div class="chat-msg bot">${data.candidates[0].content.parts[0].text}</div>`;
                 } else {
-                    msgDiv.innerHTML += `<div class="chat-msg bot">پاسخی دریافت نشد. لطفاً دوباره تلاش کنید.</div>`;
+                    msgDiv.innerHTML += `<div class="chat-msg bot">پاسخی دریافت نشد.</div>`;
                 }
             } catch (err) {
-                msgDiv.innerHTML += `<div class="chat-msg bot">خطا در ارتباط با هوش مصنوعی. لطفاً کلید خود را بررسی کنید.</div>`;
+                msgDiv.innerHTML += `<div class="chat-msg bot">خطا در ارتباط با هوش مصنوعی.</div>`;
             }
         } else {
             msgDiv.innerHTML += `<div class="chat-msg bot">برای پاسخ دقیق، لطفاً یک کلید Gemini API معتبر وارد کنید.</div>`;
@@ -783,6 +822,7 @@
     function startHeroSlider() {
         setInterval(() => {
             const slides = document.querySelectorAll('.slide');
+            if (slides.length === 0) return;
             slides[slideIdx].classList.remove('active');
             slideIdx = (slideIdx + 1) % slides.length;
             slides[slideIdx].classList.add('active');
@@ -796,6 +836,9 @@
     });
 
     // ======================== INIT ========================
+    loadData().then(() => {
+        renderTrending();
+    });
     updateUserUI();
     navigate('home');
 </script>
